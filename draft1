@@ -1,0 +1,36 @@
+mport pandas as pd
+
+
+from openpyxl import Workbook
+
+cluster = pd.read_excel('report.xlsx', sheet_name='raw vf 2')
+GDP = pd.read_excel('GDP.xlsx')
+GDPPC = pd.read_excel('GDPPC.xlsx')
+unemployment = pd.read_excel('Unemployment.xlsx')
+
+pCluster = pd.DataFrame(cluster)
+pGDP = pd.DataFrame(GDP)
+pGDPPC = pd.DataFrame(GDPPC)
+pUnemployment = pd.DataFrame(unemployment)
+
+pCluster.funding = pCluster.funding.astype(int)
+
+result = pCluster.groupby(by=['Country', 'fundingyear', 'Cluster'], as_index=False).sum()
+
+tresult = result.pivot_table(index=['Country', 'fundingyear'], columns='Cluster', aggfunc=sum, fill_value=0)
+
+#tresult.to_csv('tresult.csv')
+
+#reread the transposed data
+oCluster = pd.read_excel('cluster.xlsx')
+poCluster = pd.DataFrame(oCluster)
+
+mCG = pd.merge(poCluster, pGDP, how='left', on=['Country', 'Year'])
+
+mCGG = pd.merge(mCG, pGDPPC, how='left', on=['Country', 'Year'])
+
+mCGG = pd.merge(mCG, pGDPPC, how='left', on=['Country', 'Year'])
+
+mCGGU = pd.merge(mCGG, pUnemployment, how='left', on=['Country', 'Year'])
+
+print(mCGGU)
