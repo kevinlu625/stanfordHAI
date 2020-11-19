@@ -1,31 +1,36 @@
-mport pandas as pd
+import pandas as pd
 
-
-from openpyxl import Workbook
-
+#reading data frome excel
 cluster = pd.read_excel('report.xlsx', sheet_name='raw vf 2')
 GDP = pd.read_excel('GDP.xlsx')
 GDPPC = pd.read_excel('GDPPC.xlsx')
 unemployment = pd.read_excel('Unemployment.xlsx')
+population = pd.read_excel('Population.xlsx')
+totalAI = pd.read_excel('report.xlsx', sheet_name='totalai')
+wdi = pd.read_excel('wdi.xlsx')
 
+#turning data into panda dataframe 
 pCluster = pd.DataFrame(cluster)
 pGDP = pd.DataFrame(GDP)
 pGDPPC = pd.DataFrame(GDPPC)
 pUnemployment = pd.DataFrame(unemployment)
+pPopulation = pd.DataFrame(population)
+ptotalAI = pd.DataFrame(totalAI)
+pwdi = pd.DataFrame(wdi)
 
+#summing funding(USD) for cluster data by country amd year 
 pCluster.funding = pCluster.funding.astype(int)
 
 result = pCluster.groupby(by=['Country', 'fundingyear', 'Cluster'], as_index=False).sum()
 
 tresult = result.pivot_table(index=['Country', 'fundingyear'], columns='Cluster', aggfunc=sum, fill_value=0)
 
-#tresult.to_csv('tresult.csv')
-
-#reread the transposed data
+#redefined the transposed data
 oCluster = pd.read_excel('cluster.xlsx')
 poCluster = pd.DataFrame(oCluster)
 
-mCG = pd.merge(poCluster, pGDP, how='left', on=['Country', 'Year'])
+#merging all the data
+mCG = pd.merge(poCluster, pGDP, how='right', on=['Country', 'Year'])
 
 mCGG = pd.merge(mCG, pGDPPC, how='left', on=['Country', 'Year'])
 
@@ -33,4 +38,9 @@ mCGG = pd.merge(mCG, pGDPPC, how='left', on=['Country', 'Year'])
 
 mCGGU = pd.merge(mCGG, pUnemployment, how='left', on=['Country', 'Year'])
 
-print(mCGGU)
+mCGGUA = pd.merge(mCGGU, ptotalAI, how='left', on=['Country', 'Year'])
+
+mCGGUAW = pd.merge(mCGGUA, pwdi, how='left', on=['Country', 'Year'])
+
+#sending to excel file 
+mCGGUAW.to_excel('fundingEcon.xlsx')
