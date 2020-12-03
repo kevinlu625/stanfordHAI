@@ -19,10 +19,13 @@ ptotalAI = pd.DataFrame(totalAI)
 pwdi = pd.DataFrame(wdi)
 
 #summing funding(USD) for cluster data by country amd year 
+#referencing specific "funding" column in the dataframe Cluster and classifying it as integer
 pCluster.funding = pCluster.funding.astype(int)
 
+#summing funding by country, fundingyear, and cluster
 result = pCluster.groupby(by=['Country', 'fundingyear', 'Cluster'], as_index=False).sum()
 
+#transposing into pivot table with country and funding year as columns and data within 'Cluster' as columns, and funding(USD) is value for all cluster columns
 tresult = result.pivot_table(index=['Country', 'fundingyear'], columns='Cluster', aggfunc=sum, fill_value=0)
 
 #redefined the transposed data
