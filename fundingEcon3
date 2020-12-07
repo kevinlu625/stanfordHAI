@@ -1,0 +1,83 @@
+import pandas as pd
+
+#reading data frome excel
+fundingEcon2 = pd.read_excel('fundingEcon2.xlsx')
+RICode = pd.read_excel('RICode.xlsx')
+
+hitechmfg = pd.read_excel('hitechmfg.xlsx')
+yearsschool = pd.read_excel('yearsschool.xlsx')
+teducation = pd.read_excel('teducation.xlsx')
+compserv = pd.read_excel('compserv.xlsx')
+numbercomp = pd.read_excel('numbercomp.xlsx')
+transportserv = pd.read_excel('transportserv.xlsx')
+wdi2 = pd.read_excel('wdi2.xlsx')
+count = pd.read_excel('report.xlsx', sheet_name='clustercount')
+aggcurentusd = pd.read_excel('aggcurrentusd.xlsx')
+rofm = pd.read_excel('ROFM.xlsx')
+gerf = pd.read_excel('GERF.xlsx')
+sepgpi = pd.read_excel('SEPGPI.xlsx')
+gee = pd.read_excel('GEE.xlsx')
+eys = pd.read_excel('EYS.xlsx')
+
+
+#turning data into panda dataframe
+pfundingEcon2 = pd.DataFrame(fundingEcon2)
+pRICode = pd.DataFrame(RICode)
+
+phitechmfg = pd.DataFrame(hitechmfg)
+pyearsschool = pd.DataFrame(yearsschool)
+pteducation = pd.DataFrame(teducation)
+pcompserv = pd.DataFrame(compserv)
+pnumbercomp = pd.DataFrame(numbercomp)
+ptransportserv = pd.DataFrame(transportserv)
+pwdi2 = pd.DataFrame(wdi2)
+pCount = pd.DataFrame(count)
+paggcurrentusd = pd.DataFrame(aggcurentusd)
+profm = pd.DataFrame(rofm)
+pgerf = pd.DataFrame(gerf)
+psepgpi = pd.DataFrame(sepgpi)
+pgee = pd.DataFrame(gee)
+peys = pd.DataFrame(eys)
+
+#summing funding(USD) for cluster data by country amd year
+#referencing specific "funding" column in the dataframe Cluster and classifying it as integer
+#pCount.Count = pCount.Count.astype(int)
+
+#summing funding by country, fundingyear, and cluster
+#result = pCount.groupby(by=['Country', 'Year', 'Cluster'], as_index=False).sum()
+
+#transposing into pivot table with country and funding year as columns and data within 'Cluster' as columns, and funding(USD) is value for all cluster columns
+#tresult = result.pivot_table(index=['Country', 'Year'], columns='Cluster', aggfunc=sum, fill_value=0)
+
+#getting it into a format where there are no blank rows
+#tresult.to_csv('clustercount.csv')
+
+#redefined the transposed data
+oClusterCount = pd.read_excel('clustercount.xlsx')
+poClusterCount = pd.DataFrame(oClusterCount)
+
+
+#merging all the data
+fr = pd.merge(pfundingEcon2, pRICode, how='left', on=['Code'])
+frh = pd.merge(fr, phitechmfg, how='left', on=['Code', 'Year'])
+frhy = pd.merge(frh, pyearsschool, how='left', on=['Country', 'Year'])
+frhyt = pd.merge(frhy, pteducation, how='left', on=['Code', 'Year'])
+frhytc = pd.merge(frhyt, pcompserv, how='left', on=['Code', 'Year'])
+frhytcn = pd.merge(frhytc, pnumbercomp, how='left', on=['Country', 'Year'])
+frhytcnt = pd.merge(frhytcn, ptransportserv, how='left', on=['Code', 'Year'])
+frhytcntw = pd.merge(frhytcnt, pwdi2, how='left', on=['Code', 'Year'])
+frhytcntwc = pd.merge(frhytcntw, poClusterCount, how='left', on=['Country', 'Year'])
+frhytcntwca = pd.merge(frhytcntwc, paggcurrentusd, how='left', on=['Code', 'Year'])
+frhytcntwcar = pd.merge(frhytcntwca, profm, how='left', on=['Code', 'Year'])
+frhytcntwcarg = pd.merge(frhytcntwcar, pgerf, how='left', on=['Code', 'Year'])
+frhytcntwcargs = pd.merge(frhytcntwcarg, psepgpi, how='left', on=['Code', 'Year'])
+frhytcntwcargsg = pd.merge(frhytcntwcargs, pgee, how='left', on=['Code', 'Year'])
+frhytcntwcargsge = pd.merge(frhytcntwcargsg, peys, how='left', on=['Code', 'Year'])
+
+#print(frhytcntwcargsge)
+
+#sending to excel file
+frhytcntwcargsge.to_excel('fundingEcon3.xlsx')
+
+
+
