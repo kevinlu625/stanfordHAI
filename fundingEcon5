@@ -1,0 +1,31 @@
+import pandas as pd
+
+#reading data frome excel
+fundingEcon4 = pd.read_excel('fundingEcon4.xlsx')
+schoolingfemale = pd.read_excel('schoolingfemale.xlsx')
+countrycodes = pd.read_excel('countrycodes.xlsx')
+totalai = pd.read_excel('totalai.xlsx')
+data2a = pd.read_excel('data2.xlsx', sheet_name='sheet1')
+data2b = pd.read_excel('data1.xlsx', sheet_name='sheet2')
+
+
+#turning data into panda dataframe
+pfundingEcon4 = pd.DataFrame(fundingEcon4)
+pschoolingFemale = pd.DataFrame(schoolingfemale)
+pcountryCodes = pd.DataFrame(countrycodes)
+ptotalai = pd.DataFrame(totalai)
+pdata2a = pd.DataFrame(data2a)
+pdata2b = pd.DataFrame(data2b)
+
+sf = pd.merge(pfundingEcon4, pschoolingFemale, how='left', on=['Code', 'Year'])
+sfp = pd.merge(sf, ptotalai, how='left', on=['Code', 'Year'])
+
+
+#merging all the data
+#print(frhytcntwcargsge)
+
+#sending to excel file
+sfp.to_excel('fundingEcon5.xlsx')
+
+
+
