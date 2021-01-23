@@ -1,0 +1,40 @@
+import pandas as pd
+import numpy as np
+
+#reading data frome excel
+fundingEcon5 = pd.read_excel('fundingEcon5.xlsx')
+countrycodes = pd.read_excel('countrycodes.xlsx')
+data2a = pd.read_excel('data2official.xlsx', sheet_name='data2a')
+data2b = pd.read_excel('data2official.xlsx', sheet_name='data2b')
+pop2 = pd.read_excel('Population.xlsx', sheet_name='pop2')
+ricode = pd.read_excel('RICode.xlsx')
+reaggdata1 = pd.read_excel('reaggdata1.xlsx')
+
+
+#turning data into panda dataframe
+pfundingEcon5 = pd.DataFrame(fundingEcon5)
+pcountryCodes = pd.DataFrame(countrycodes)
+pdata2a = pd.DataFrame(data2a)
+pdata2b = pd.DataFrame(data2b)
+pPop2 = pd.DataFrame(pop2)
+pRICode = pd.DataFrame(ricode)
+preaggdata1 = pd.DataFrame(reaggdata1)
+
+#preaggdata['Financial/Internet Security'] = preaggdata['Fraud Detection, Money Laundering'] + preaggdata['Network Security']
+#preaggdata['Data Analytics'] = preaggdata['Data Science, Data Platform'] + preaggdata['Text Analytics']
+#preaggdata['Business Management'] = preaggdata['Sales Automation, Meeting Management'] + preaggdata['Supply Chain Management']
+#preaggdata['Money, Personal Finance 2'] = preaggdata['Money, Personal Finance'] + preaggdata['Crypto, Wealth Management']
+#preaggdata['Energy'] = preaggdata['Energy Management'] + preaggdata['Oil and Gas']
+#preaggdata['Medical Sciences'] = preaggdata['Cancer, Drug Discovery'] + preaggdata['Neuroscience']
+
+preaggdatasorted = preaggdata.replace(0, np.nan)
+preaggdatasorted2 = preaggdatasorted.groupby('Code').apply(lambda group: group.interpolate(method='index'))
+
+#print(preaggdatasorted2)
+#print(preaggdatasorted.dtypes)
+
+#sending to excel file
+preaggdatasorted2.to_excel('reaggdata1.xlsx')
+
+
+
