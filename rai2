@@ -1,0 +1,107 @@
+import pandas as pd
+import numpy as np
+
+#reading data frome excel
+rcaAI2020 = pd.read_csv('rcaAI2020.csv')
+rcaAI2019 = pd.read_csv('rcaAI2019.csv')
+rcaAI2018 = pd.read_csv('rcaAI2018.csv')
+rcaAI2017 = pd.read_csv('rcaAI2017.csv')
+rcaAI2016 = pd.read_csv('rcaAI2016.csv')
+rcaAI2015 = pd.read_csv('rcaAI2015.csv')
+rcaAI2014 = pd.read_csv('rcaAI2014.csv')
+rcaAI2013 = pd.read_csv('rcaAI2013.csv')
+rcaAI2012 = pd.read_csv('rcaAI2012.csv')
+rcaAI2011 = pd.read_csv('rcaAI2011.csv')
+airca = pd.read_excel('airca.xlsx')
+airca1 = pd.read_excel('airca.xlsx', sheet_name = '11-14')
+airca2 = pd.read_excel('airca.xlsx', sheet_name = '18-20')
+
+
+
+#turning data into panda dataframe
+prcaAI2020 = pd.DataFrame(rcaAI2020)
+prcaAI2019 = pd.DataFrame(rcaAI2019)
+prcaAI2018 = pd.DataFrame(rcaAI2018)
+prcaAI2017 = pd.DataFrame(rcaAI2017)
+prcaAI2016 = pd.DataFrame(rcaAI2016)
+prcaAI2015 = pd.DataFrame(rcaAI2015)
+prcaAI2014 = pd.DataFrame(rcaAI2014)
+prcaAI2013 = pd.DataFrame(rcaAI2013)
+prcaAI2012 = pd.DataFrame(rcaAI2012)
+prcaAI2011 = pd.DataFrame(rcaAI2011)
+pairca = pd.DataFrame(airca)
+pairca1 = pd.DataFrame(airca1)
+pairca2 = pd.DataFrame(airca2)
+
+#code
+#rca1 = pd.merge(prcaAI2011, prcaAI2012, how='right', on=['Code'])
+#rca2 = pd.merge(rca1, prcaAI2013, how='right', on=['Code'])
+#rca3 = pd.merge(rca2, prcaAI2014, how='right', on=['Code'])
+#rca4 = pd.merge(rca3, prcaAI2015, how='right', on=['Code'])
+#rca5 = pd.merge(rca4, prcaAI2016, how='right', on=['Code'])
+##rca6 = pd.merge(rca5, prcaAI2017, how='right', on=['Code'])
+#rca7 = pd.merge(rca6, prcaAI2018, how='right', on=['Code'])
+#rca8 = pd.merge(rca7, prcaAI2019, how='right', on=['Code'])
+#rca9 = pd.merge(rca8, prcaAI2020, how='right', on=['Code'])
+
+pairca1["AR_VR SUM"] = pairca1[["year", "origin", "AR_VR"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["Advertising SUM"] = pairca1[["year", "origin", "Advertising"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["AgTech SUM"] = pairca1[["year", "origin", "AgTech"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["Drone_Satellite SUM"] = pairca1[["year", "origin", "Drone_Satellite"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["Education_Children SUM"] = pairca1[["year", "origin", "Education_Children"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["Fitness_Wellness SUM"] = pairca1[["year", "origin", "Fitness_Wellness"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["Gaming_E_Sports SUM"] = pairca1[["year", "origin", "Gaming_E_Sports"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["ImageRecognition_VisualSearch SUM"] = pairca1[["year", "origin", "ImageRecognition_VisualSearch"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["Insuretech SUM"] = pairca1[["year", "origin", "Insuretech"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["LegalTech SUM"] = pairca1[["year", "origin", "LegalTech"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["RealEstate SUM"] = pairca1[["year", "origin", "RealEstate"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["Recruiting SUM"] = pairca1[["year", "origin", "Recruiting"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["Restaurants_FoodAndBeverage SUM"] = pairca1[["year", "origin", "Restaurants_FoodAndBeverage"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["RetailTech_E_Commerce SUM"] = pairca1[["year", "origin", "RetailTech_E_Commerce"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["Wifi_HomeTech SUM"] = pairca1[["year", "origin", "Wifi_HomeTech"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["AuthenticationTechnology SUM"] = pairca1[["year", "origin", "AuthenticationTechnology"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["MediaContent SUM"] = pairca1[["year", "origin", "MediaContent"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["RoboticAutomation SUM"] = pairca1[["year", "origin", "RoboticAutomation"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["ComputingTechnology SUM"] = pairca1[["year", "origin", "ComputingTechnology"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["DataAnalytics SUM"] = pairca1[["year", "origin", "DataAnalytics"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["BusinessManagement SUM"] = pairca1[["year", "origin", "BusinessManagement"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["Money_PersonalFinance SUM"] = pairca1[["year", "origin", "Money_PersonalFinance"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["Energy SUM"] = pairca1[["year", "origin", "Energy"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca1["MedicalSciences SUM"] = pairca1[["year", "origin", "MedicalSciences"]].groupby(by=["year", "origin"]).transform(np.sum)
+
+pairca2["AR_VR SUM"] = pairca2[["year", "origin", "AR_VR"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["Advertising SUM"] = pairca2[["year", "origin", "Advertising"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["AgTech SUM"] = pairca2[["year", "origin", "AgTech"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["Drone_Satellite SUM"] = pairca2[["year", "origin", "Drone_Satellite"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["Education_Children SUM"] = pairca2[["year", "origin", "Education_Children"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["Fitness_Wellness SUM"] = pairca2[["year", "origin", "Fitness_Wellness"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["Gaming_E_Sports SUM"] = pairca2[["year", "origin", "Gaming_E_Sports"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["ImageRecognition_VisualSearch SUM"] = pairca2[["year", "origin", "ImageRecognition_VisualSearch"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["Insuretech SUM"] = pairca2[["year", "origin", "Insuretech"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["LegalTech SUM"] = pairca2[["year", "origin", "LegalTech"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["RealEstate SUM"] = pairca2[["year", "origin", "RealEstate"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["Recruiting SUM"] = pairca2[["year", "origin", "Recruiting"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["Restaurants_FoodAndBeverage SUM"] = pairca2[["year", "origin", "Restaurants_FoodAndBeverage"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["RetailTech_E_Commerce SUM"] = pairca2[["year", "origin", "RetailTech_E_Commerce"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["Wifi_HomeTech SUM"] = pairca2[["year", "origin", "Wifi_HomeTech"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["AuthenticationTechnology SUM"] = pairca2[["year", "origin", "AuthenticationTechnology"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["MediaContent SUM"] = pairca2[["year", "origin", "MediaContent"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["RoboticAutomation SUM"] = pairca2[["year", "origin", "RoboticAutomation"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["ComputingTechnology SUM"] = pairca2[["year", "origin", "ComputingTechnology"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["DataAnalytics SUM"] = pairca2[["year", "origin", "DataAnalytics"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["BusinessManagement SUM"] = pairca2[["year", "origin", "BusinessManagement"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["Money_PersonalFinance SUM"] = pairca2[["year", "origin", "Money_PersonalFinance"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["Energy SUM"] = pairca2[["year", "origin", "Energy"]].groupby(by=["year", "origin"]).transform(np.sum)
+pairca2["MedicalSciences SUM"] = pairca2[["year", "origin", "MedicalSciences"]].groupby(by=["year", "origin"]).transform(np.sum)
+
+#print(pairca1)
+#print(pairca2)
+
+#pairca.loc[pairca['year'] <= 4, 'equal_or_lower_than_4?'] = 'True'
+#pairca.loc[pairca['year'] > 4, 'equal_or_lower_than_4?'] = 'False'
+#pairca.loc[pairca['year'], 'equal_or_lower_than_4?'] = 'True'
+
+
+#sending to excel file
+pairca1.to_excel('11-14.xlsx')
+pairca2.to_excel('18-20.xlsx')
