@@ -1,0 +1,173 @@
+import pandas as pd
+import numpy as np
+
+#reading data frome excel
+reaggdata1 = pd.read_excel('reaggdata1.xlsx')
+goodsrca = pd.read_excel('goodsrca.xlsx')
+#sitc = pd.read_excel('./data/year_origin_sitc_rev2.csv')
+
+
+#turning data into panda dataframe
+preaggdata1 = pd.DataFrame(reaggdata1)
+pgoodsrca = pd.DataFrame(goodsrca)
+
+#code
+preaggdata1["world_export"] = preaggdata1[["year", 'total']].groupby(by=["year"]).transform(np.sum)
+
+preaggdata1["AR, VR cntry_export"] = preaggdata1[["year", "origin", "AR, VR"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["AR, VR prod_export"] = preaggdata1[["year", "AR, VR"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["AR, VR rca"] = (preaggdata1["AR, VR"] / preaggdata1["AR, VR cntry_export"]) / (preaggdata1["AR, VR prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Advertising cntry_export"] = preaggdata1[["year", "origin", "Advertising"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Advertising prod_export"] = preaggdata1[["year", "Advertising"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Advertising rca"] = (preaggdata1["Advertising"] / preaggdata1["Advertising cntry_export"]) / (preaggdata1["Advertising prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["AgTech cntry_export"] = preaggdata1[["year", "origin", "AgTech"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["AgTech prod_export"] = preaggdata1[["year", "AgTech"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["AgTech rca"] = (preaggdata1["AgTech"] / preaggdata1["AgTech cntry_export"]) / (preaggdata1["AgTech prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Autonomous Vehicle cntry_export"] = preaggdata1[["year", "origin", "Autonomous Vehicle"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Autonomous Vehicle prod_export"] = preaggdata1[["year", "Autonomous Vehicle"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Autonomous Vehicle rca"] = (preaggdata1["Autonomous Vehicle"] / preaggdata1["Autonomous Vehicle cntry_export"]) / (preaggdata1["Autonomous Vehicle prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Drone, Satellite cntry_export"] = preaggdata1[["year", "origin", "Drone, Satellite"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Drone, Satellite prod_export"] = preaggdata1[["year", "Drone, Satellite"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Drone, Satellite rca"] = (preaggdata1["Drone, Satellite"] / preaggdata1["Drone, Satellite cntry_export"]) / (preaggdata1["Drone, Satellite prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Education, Children cntry_export"] = preaggdata1[["year", "origin", "Education, Children"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Education, Children prod_export"] = preaggdata1[["year", "Education, Children"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Education, Children rca"] = (preaggdata1["Education, Children"] / preaggdata1["Education, Children cntry_export"]) / (preaggdata1["Education, Children prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Fitness & Wellness cntry_export"] = preaggdata1[["year", "origin", "Fitness & Wellness"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Fitness & Wellness prod_export"] = preaggdata1[["year", "Fitness & Wellness"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Fitness & Wellness rca"] = (preaggdata1["Fitness & Wellness"] / preaggdata1["Fitness & Wellness cntry_export"]) / (preaggdata1["Fitness & Wellness prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Gaming, e-Sports cntry_export"] = preaggdata1[["year", "origin", "Gaming, e-Sports"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Gaming, e-Sports prod_export"] = preaggdata1[["year", "Gaming, e-Sports"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Gaming, e-Sports rca"] = (preaggdata1["Gaming, e-Sports"] / preaggdata1["Gaming, e-Sports cntry_export"]) / (preaggdata1["Gaming, e-Sports prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Hospitality cntry_export"] = preaggdata1[["year", "origin", "Hospitality"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Hospitality prod_export"] = preaggdata1[["year", "Hospitality"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Hospitality rca"] = (preaggdata1["Hospitality"] / preaggdata1["Hospitality cntry_export"]) / (preaggdata1["Hospitality prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Image Recognition, Visual Search cntry_export"] = preaggdata1[["year", "origin", "Image Recognition, Visual Search"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Image Recognition, Visual Search prod_export"] = preaggdata1[["year", "Image Recognition, Visual Search"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Image Recognition, Visual Search rca"] = (preaggdata1["Image Recognition, Visual Search"] / preaggdata1["Image Recognition, Visual Search cntry_export"]) / (preaggdata1["Image Recognition, Visual Search prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Insuretech cntry_export"] = preaggdata1[["year", "origin", "Insuretech"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Insuretech prod_export"] = preaggdata1[["year", "Insuretech"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Insuretech rca"] = (preaggdata1["Insuretech"] / preaggdata1["Insuretech cntry_export"]) / (preaggdata1["Insuretech prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Legal Tech cntry_export"] = preaggdata1[["year", "origin", "Legal Tech"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Legal Tech prod_export"] = preaggdata1[["year", "Legal Tech"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Legal Tech rca"] = (preaggdata1["Legal Tech"] / preaggdata1["Legal Tech cntry_export"]) / (preaggdata1["Legal Tech prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Real Estate cntry_export"] = preaggdata1[["year", "origin", "Real Estate"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Real Estate prod_export"] = preaggdata1[["year", "Real Estate"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Real Estate rca"] = (preaggdata1["Real Estate"] / preaggdata1["Real Estate cntry_export"]) / (preaggdata1["Real Estate prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Recruiting cntry_export"] = preaggdata1[["year", "origin", "Recruiting"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Recruiting prod_export"] = preaggdata1[["year", "Recruiting"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Recruiting rca"] = (preaggdata1["Recruiting"] / preaggdata1["Recruiting cntry_export"]) / (preaggdata1["Recruiting prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Restaurants, Food and Beverage cntry_export"] = preaggdata1[["year", "origin", "Restaurants, Food and Beverage"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Restaurants, Food and Beverage prod_export"] = preaggdata1[["year", "Restaurants, Food and Beverage"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Restaurants, Food and Beverage rca"] = (preaggdata1["Restaurants, Food and Beverage"] / preaggdata1["Restaurants, Food and Beverage cntry_export"]) / (preaggdata1["Restaurants, Food and Beverage prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Retail Tech, E-Commerce cntry_export"] = preaggdata1[["year", "origin", "Retail Tech, E-Commerce"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Retail Tech, E-Commerce prod_export"] = preaggdata1[["year", "Retail Tech, E-Commerce"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Retail Tech, E-Commerce rca"] = (preaggdata1["Retail Tech, E-Commerce"] / preaggdata1["Retail Tech, E-Commerce cntry_export"]) / (preaggdata1["Retail Tech, E-Commerce prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Venture Capital cntry_export"] = preaggdata1[["year", "origin", "Venture Capital"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Venture Capital prod_export"] = preaggdata1[["year", "Venture Capital"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Venture Capital rca"] = (preaggdata1["Venture Capital"] / preaggdata1["Venture Capital cntry_export"]) / (preaggdata1["Venture Capital prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Wifi, Home Tech cntry_export"] = preaggdata1[["year", "origin", "Wifi, Home Tech"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Wifi, Home Tech prod_export"] = preaggdata1[["year", "Wifi, Home Tech"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Wifi, Home Tech rca"] = (preaggdata1["Wifi, Home Tech"] / preaggdata1["Wifi, Home Tech cntry_export"]) / (preaggdata1["Wifi, Home Tech prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Authentication Technology cntry_export"] = preaggdata1[["year", "origin", "Authentication Technology"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Authentication Technology prod_export"] = preaggdata1[["year", "Authentication Technology"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Authentication Technology rca"] = (preaggdata1["Authentication Technology"] / preaggdata1["Authentication Technology cntry_export"]) / (preaggdata1["Authentication Technology prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Medical Technology cntry_export"] = preaggdata1[["year", "origin", "Medical Technology"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Medical Technology prod_export"] = preaggdata1[["year", "Medical Technology"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Medical Technology rca"] = (preaggdata1["Medical Technology"] / preaggdata1["Medical Technology cntry_export"]) / (preaggdata1["Medical Technology prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Media Content cntry_export"] = preaggdata1[["year", "origin", "Media Content"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Media Content prod_export"] = preaggdata1[["year", "Media Content"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Media Content rca"] = (preaggdata1["Media Content"] / preaggdata1["Media Content cntry_export"]) / (preaggdata1["Media Content prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Robotic Automation cntry_export"] = preaggdata1[["year", "origin", "Robotic Automation"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Robotic Automation prod_export"] = preaggdata1[["year", "Robotic Automation"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Robotic Automation rca"] = (preaggdata1["Robotic Automation"] / preaggdata1["Robotic Automation cntry_export"]) / (preaggdata1["Robotic Automation prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Computing Technology cntry_export"] = preaggdata1[["year", "origin", "Computing Technology"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Computing Technology prod_export"] = preaggdata1[["year", "Computing Technology"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Computing Technology rca"] = (preaggdata1["Computing Technology"] / preaggdata1["Computing Technology cntry_export"]) / (preaggdata1["Computing Technology prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Financial/Internet Security cntry_export"] = preaggdata1[["year", "origin", "Financial/Internet Security"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Financial/Internet Security prod_export"] = preaggdata1[["year", "Financial/Internet Security"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Financial/Internet Security rca"] = (preaggdata1["Financial/Internet Security"] / preaggdata1["Financial/Internet Security cntry_export"]) / (preaggdata1["Financial/Internet Security prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Data Analytics cntry_export"] = preaggdata1[["year", "origin", "Data Analytics"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Data Analytics prod_export"] = preaggdata1[["year", "Data Analytics"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Data Analytics rca"] = (preaggdata1["Data Analytics"] / preaggdata1["Data Analytics cntry_export"]) / (preaggdata1["Data Analytics prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Business Management cntry_export"] = preaggdata1[["year", "origin", "Business Management"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Business Management prod_export"] = preaggdata1[["year", "Business Management"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Business Management rca"] = (preaggdata1["Business Management"] / preaggdata1["Business Management cntry_export"]) / (preaggdata1["Business Management prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Money, Personal Finance cntry_export"] = preaggdata1[["year", "origin", "Money, Personal Finance"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Money, Personal Finance prod_export"] = preaggdata1[["year", "Money, Personal Finance"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Money, Personal Finance rca"] = (preaggdata1["Money, Personal Finance"] / preaggdata1["Money, Personal Finance cntry_export"]) / (preaggdata1["Money, Personal Finance prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Energy cntry_export"] = preaggdata1[["year", "origin", "Energy"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Energy prod_export"] = preaggdata1[["year", "Energy"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Energy rca"] = (preaggdata1["Energy"] / preaggdata1["Energy cntry_export"]) / (preaggdata1["Energy prod_export"] / preaggdata1["world_export"])
+
+
+preaggdata1["Medical Sciences cntry_export"] = preaggdata1[["year", "origin", "Medical Sciences"]].groupby(by=["year", "origin"]).transform(np.sum)
+preaggdata1["Medical Sciences prod_export"] = preaggdata1[["year", "Medical Sciences"]].groupby(by=["year"]).transform(np.sum)
+preaggdata1["Medical Sciences rca"] = (preaggdata1["Medical Sciences"] / preaggdata1["Medical Sciences cntry_export"]) / (preaggdata1["Medical Sciences prod_export"] / preaggdata1["world_export"])
+
+#print(preaggdata1)
+
+#print(preaggdata1)
+#print statements
+#print(pgoodsrca1)
+#print(sitc)
+
+#sending to excel file
+preaggdata1.to_excel('reaggdata1.xlsx')
+
+
+
+
